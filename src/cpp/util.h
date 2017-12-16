@@ -58,7 +58,7 @@ opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {
         v.name = o.attr("name").cast<std::string>();
         v.description = o.attr("description").cast<std::string>();
         v.unit = o.attr("unit").cast<std::string>();
-        v.unit = o.attr("has_fixed_bin_count").cast<bool>();
+        v.hasFixedBinCount = o.attr("has_fixed_bin_count").cast<bool>();
         v.binCount = o.attr("bin_count").cast<size_t>();
         auto binNames = o.attr("bin_names").cast<std::list<std::string>>();
         v.binNames = std::vector<std::string>{
@@ -70,7 +70,7 @@ opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {
         v.maxValue = o.attr("max_value").cast<float>();
         v.isQuantized = o.attr("is_quantized").cast<bool>();
         v.quantizeStep = o.attr("quantize_step").cast<float>();
-        v.sampleRate = static_cast<VampOutputDescriptor::SampleType>(
+        v.sampleType = static_cast<VampOutputDescriptor::SampleType>(
                 o.attr("sample_type").cast<int>()
         );
         v.sampleRate = o.attr("sample_rate").cast<float>();
