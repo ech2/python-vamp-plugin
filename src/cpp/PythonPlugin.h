@@ -7,7 +7,6 @@
 
 #include <experimental/optional>
 #include "pybind11/pybind11.h"
-#include "vamp-hostsdk/vamp-hostsdk.h"
 #include "vamp-sdk/vamp-sdk.h"
 #include "PythonCasting.h"
 
