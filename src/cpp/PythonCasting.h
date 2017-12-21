@@ -39,13 +39,13 @@ opt<VampFeature> fromPyObj<VampFeature>(const py::object &o) {
                 std::make_move_iterator(values.end())
         };
         v.label = o.attr("label").cast<std::string>();
-        return opt<VampFeature>(v);
+        return v;
     } catch (py::cast_error &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampFeature>();
+        return {};
     } catch (py::error_already_set &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampFeature>();
+        return {};
     }
 }
 
@@ -75,13 +75,13 @@ opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {
         );
         v.sampleRate = o.attr("sample_rate").cast<float>();
         v.hasDuration = o.attr("has_duration").cast<bool>();
-        return opt<VampOutputDescriptor>(v);
+        return v;
     } catch (py::cast_error &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampOutputDescriptor>();
+        return {};
     } catch (py::error_already_set &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampOutputDescriptor>();
+        return {};
     }
 }
 
@@ -91,13 +91,13 @@ opt<VampRealTime> fromPyObj<VampRealTime>(const py::object &o) {
     try {
         auto msec = o.attr("msec").cast<int>();
         auto nsec = o.attr("nsec").cast<int>();
-        return opt<VampRealTime>(VampRealTime{msec, nsec});
+        return VampRealTime{msec, nsec};
     } catch (py::cast_error &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampRealTime>();
+        return {};
     } catch (py::error_already_set &e) {
         std::cerr << e.what() << std::endl;
-        return opt<VampRealTime>();
+        return {};
     }
 }
 
