@@ -18,7 +18,7 @@ add_library(
         src/cpp/PythonPlugin.h
         src/cpp/PythonCasting.h
         src/cpp/PythonPluginAdapter.cpp
-        src/cpp/PythonPluginAdapter.h)
+        src/cpp/PythonPluginAdapter.h src/cpp/plugin.cpp)
 
 
 add_executable(
