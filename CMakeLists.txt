@@ -16,7 +16,9 @@ add_library(
         python_vamp_plugin STATIC
         src/cpp/PythonPlugin.cpp
         src/cpp/PythonPlugin.h
-        src/cpp/PythonCasting.h)
+        src/cpp/PythonCasting.h
+        src/cpp/PythonPluginAdapter.cpp
+        src/cpp/PythonPluginAdapter.h)
 
 
 add_executable(
