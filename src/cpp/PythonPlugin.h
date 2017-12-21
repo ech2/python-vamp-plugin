@@ -63,7 +63,6 @@ protected:
     template<typename RetType, typename... Args>
     opt<RetType> callPythonMethod(const char *methodName, Args &&...args) const;
 
-private:
     size_t inputChannels;
     size_t stepSize;
     size_t blockSize;
