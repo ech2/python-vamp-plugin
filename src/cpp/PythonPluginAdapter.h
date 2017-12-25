@@ -19,8 +19,8 @@ public:
 
     ~PythonPluginAdapter() override;
 
+    const py::object plugClass;
 protected:
-    py::object plugClass;
 
     Vamp::Plugin *createPlugin(float inputSampleRate) override;
 
