@@ -9,19 +9,20 @@ from .vampinterface import VampPluginInterface
 
 
 def get_vamp_plugins_path() -> List[str]:
-    if platform.system() == 'darwin':
+    this_os = platform.system().lower()
+    if this_os == 'darwin':
         return [
             path.expanduser('~/Library/Audio/Plug-Ins/Vamp'),
             '/Library/Audio/Plug-Ins/Vamp'
         ]
-    elif platform.system() == 'linux':
+    elif this_os == 'linux':
         return [
             path.expanduser('~/vamp'),
             path.expanduser('~/.vamp'),
             '/usr/local/lib/vamp',
             '/usr/lib/vamp'
         ]
-    elif platform.system() == 'win32':
+    elif this_os == 'win32':
         pf32 = os.getenv('ProgramFiles(x86)', 'C:\\Program Files (x86)')
         pf64 = os.getenv('ProgramFiles', 'C:\\Program Files')
         return [path.join(p, 'Vamp Plugins') for p in [pf32, pf64]]
