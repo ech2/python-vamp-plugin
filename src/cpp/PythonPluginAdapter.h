@@ -8,9 +8,10 @@
 #include "vamp-sdk/PluginAdapter.h"
 #include "pybind11/pybind11.h"
 
-namespace py = pybind11;
 
 namespace vplug {
+
+namespace py = pybind11;
 
 class PythonPluginAdapter : public Vamp::PluginAdapterBase {
 public:
