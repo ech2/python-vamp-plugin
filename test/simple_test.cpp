@@ -1,17 +1,17 @@
 
 #include "pybind11/pybind11.h"
-#include "pybind11/embed.h"
+#include "../src/cpp/plugin.cpp"
 #include "../src/cpp/PythonPlugin.h"
 
-namespace py = pybind11;
+int main(int argc, const char **argv) {
+    pyInit();
+    auto t = PythonPlugin(44100, (*pyPlugins)[0].plugClass);
+    float d[] = {1, 2};
+    float **dd;
+    dd[0] = d;
 
-int main(int argc, const char** argv) {
-    py::scoped_interpreter python{};
-
-    auto mod = py::module::import("vplug");
-    auto plugs = mod.attr("find_plugins")().cast<py::list>();
-    auto p = plugs[0];
-
-    vplug::PythonPlugin plug{44100, p};
-    plug.reset();
+    t.initialise(1, 2, 2);
+    auto lol = t.process(reinterpret_cast<const float *const *>(dd), Vamp::RealTime{30, 30});
+    t.reset();
+    py::print("lol");
 }
