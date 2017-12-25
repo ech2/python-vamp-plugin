@@ -61,7 +61,7 @@ class OutputDescriptor:
 
 class Feature(object):
     def __init__(self,
-                 had_timestamp: bool = False,
+                 has_timestamp: bool = False,
                  timestamp: RealTime = RealTime(),
                  has_duration: bool = False,
                  duration: RealTime = RealTime(),
@@ -69,7 +69,7 @@ class Feature(object):
                  label: str = 'default_label'):
         if values is None:
             values = []
-        self.had_timestamp = had_timestamp
+        self.has_timestamp = has_timestamp
         self.timestamp = timestamp
         self.has_duration = has_duration
         self.duration = duration
