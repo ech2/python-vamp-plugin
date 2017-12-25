@@ -43,3 +43,15 @@ configure_file(
         src/python/vplug/vampinterface.py
         ${CMAKE_CURRENT_BINARY_DIR}/vplug/vampinterface.py
         COPYONLY)
+configure_file(
+        src/python/vplug/discovery.py
+        ${CMAKE_CURRENT_BINARY_DIR}/vplug/discovery.py
+        COPYONLY)
+configure_file(
+        src/python/vplug/test/__init__.py
+        ${CMAKE_CURRENT_BINARY_DIR}/vplug/test/__init__.py
+        COPYONLY)
+configure_file(
+        src/python/vplug/test/dummyplugin.py
+        ${CMAKE_CURRENT_BINARY_DIR}/vplug/test/dummyplugin.py
+        COPYONLY)
