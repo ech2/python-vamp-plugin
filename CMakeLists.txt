@@ -12,20 +12,25 @@ include_directories(
         ${PYTHON_INCLUDE_DIRS}
         /usr/include)
 
+
+# Main library
+
 add_library(
         python_vamp_plugin STATIC
         src/cpp/PythonPlugin.cpp
         src/cpp/PythonPlugin.h
         src/cpp/PythonCasting.h
         src/cpp/PythonPluginAdapter.cpp
-        src/cpp/PythonPluginAdapter.h src/cpp/plugin.cpp)
+        src/cpp/PythonPluginAdapter.h
+        src/cpp/plugin.cpp)
 
+
+# Test binary
 
 add_executable(
         simple_test
         test/simple_test.cpp
         src/cpp/PythonPlugin.h)
-
 
 target_link_libraries(
         simple_test PUBLIC python_vamp_plugin
@@ -34,6 +39,7 @@ target_link_libraries(
         /usr/lib/libvamp-hostsdk.so)
 
 
+# Python files
 
 configure_file(
         src/python/vplug/__init__.py
