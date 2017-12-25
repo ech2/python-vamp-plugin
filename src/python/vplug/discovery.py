@@ -3,7 +3,9 @@ import os
 import platform
 from importlib.util import spec_from_file_location, module_from_spec
 from os import path
-from typing import List
+from typing import List, Tuple
+
+import sys
 
 from .vampinterface import VampPluginInterface
 
@@ -38,14 +40,20 @@ def find_python_files(dirs: List[str]) -> List[str]:
             if path.splitext(name)[1].lower() == '.py']
 
 
-def find_vamp_module_classes(py_files: List[str]) -> List[type]:
-    specs = [spec_from_file_location(f) for f in py_files]
-    mods = [module_from_spec(s) for s in specs]
-    return [cls
-            for m in mods
-            for _, cls in inspect.getmembers(m, inspect.isclass)
-            if issubclass(cls, VampPluginInterface)
-            and cls is not VampPluginInterface]
+def find_vamp_module_classes(py_files: List[str]) -> List[Tuple[str, type]]:
+    specs = [spec_from_file_location(path.basename(f).
+                                     replace('.py', '').
+                                     replace('.', '').
+                                     replace('-', '_'), f)
+             for f in py_files]
+    classes = []
+    for s in specs:
+        m = module_from_spec(s)
+        s.loader.exec_module(m)
+        classes.extend([(n, c) for n, c in inspect.getmembers(m, inspect.isclass)
+                        if issubclass(c, VampPluginInterface)
+                        and c is not VampPluginInterface])
+    return classes
 
 
 def find_vamp_modules_from_path():
