@@ -33,7 +33,8 @@ def get_vamp_plugins_path() -> List[str]:
 def find_python_files(dirs: List[str]) -> List[str]:
     return [path.join(dirpath, name)
             for d in dirs
-            for dirpath, _, name in os.walk(d)
+            for dirpath, _, names in os.walk(path.expanduser(d))
+            for name in names
             if path.splitext(name)[1].lower() == '.py']
 
 
