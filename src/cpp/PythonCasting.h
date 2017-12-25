@@ -10,6 +10,7 @@
 #include "pybind11/cast.h"
 #include "vamp-sdk/vamp-sdk.h"
 #include "PythonPlugin.h"
+#include "PythonCasting.h"
 
 namespace vplug {
 namespace util {
@@ -26,13 +27,31 @@ static opt<T> fromPyObj(const py::object &o);
 
 
 template<>
+opt<VampRealTime> fromPyObj<VampRealTime>(const py::object &o) {
+    try {
+        auto msec = o.attr("sec").cast<int>();
+        auto nsec = o.attr("nsec").cast<int>();
+        return VampRealTime{msec, nsec};
+    } catch (py::cast_error &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    } catch (py::error_already_set &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    }
+}
+
+
+template<>
 opt<VampFeature> fromPyObj<VampFeature>(const py::object &o) {
     try {
         auto v = VampFeature();
         v.hasTimestamp = o.attr("has_timestamp").cast<bool>();
-        v.timestamp = o.attr("timestamp").cast<VampRealTime>();
+        v.timestamp = fromPyObj<VampRealTime>(o.attr("timestamp").cast<py::object>())
+                .value_or(VampRealTime{});
         v.hasDuration = o.attr("has_duration").cast<bool>();
-        v.duration = o.attr("duration").cast<VampRealTime>();
+        v.duration = fromPyObj<VampRealTime>(o.attr("duration").cast<py::object>())
+                .value_or(VampRealTime{});
         auto values = o.attr("values").cast<std::list<float>>();
         v.values = std::vector<float>{
                 std::make_move_iterator(values.begin()),
@@ -85,21 +104,6 @@ opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {
     }
 }
 
-
-template<>
-opt<VampRealTime> fromPyObj<VampRealTime>(const py::object &o) {
-    try {
-        auto msec = o.attr("msec").cast<int>();
-        auto nsec = o.attr("nsec").cast<int>();
-        return VampRealTime{msec, nsec};
-    } catch (py::cast_error &e) {
-        std::cerr << e.what() << std::endl;
-        return {};
-    } catch (py::error_already_set &e) {
-        std::cerr << e.what() << std::endl;
-        return {};
-    }
-}
 
 }
 }
