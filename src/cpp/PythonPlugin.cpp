@@ -1,8 +1,6 @@
 #include "PythonPlugin.h"
-#include <list>
-#include <map>
-#include "PythonCasting.h"
 #include "pybind11/numpy.h"
+#include "pybind11/stl.h"
 
 using namespace vplug;
 
@@ -61,16 +59,17 @@ Vamp::Plugin::FeatureSet PythonPlugin::process(const float *const *inputBuffers,
                                                Vamp::RealTime timestamp) {
     using PyFeatureSet = std::map<int, std::list<py::object>>;
 
-    py::list chanlist(inputChannels);
+    py::list chanlist;
     for (int i = 0; i < inputChannels; i++) {
         auto *buf = (void *) inputBuffers[i];
+        std::cout << blockSize;
         auto bufInfo = py::buffer_info(
                 buf,
                 sizeof(float),
                 py::format_descriptor<float>::format(),
                 (size_t) 1,
-                std::vector<size_t>{blockSize, 0},
-                std::vector<size_t>{sizeof(float) * blockSize, 0}
+                std::vector<size_t>{blockSize},
+                std::vector<size_t>{sizeof(float)}
         );
         auto dt = py::dtype(bufInfo);
         py::array arr(dt, bufInfo.shape, bufInfo.strides, bufInfo.ptr);
