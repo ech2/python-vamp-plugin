@@ -1,7 +1,3 @@
-//
-// Created by ech on 12/13/17.
-//
-
 #ifndef PYTHON_VAMP_PLUGIN_UTIL_H
 #define PYTHON_VAMP_PLUGIN_UTIL_H
 
@@ -9,7 +5,6 @@
 #include <vector>
 #include "common.h"
 #include "PythonPlugin.h"
-#include "PythonCasting.h"
 
 namespace vplug {
 namespace util {
@@ -103,7 +98,6 @@ opt<VampFeature> fromPyObj<VampFeature>(const py::object &o) {
         return {};
     }
 }
-
 
 template<>
 opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {

@@ -11,8 +11,8 @@ class InputDomain(Enum):
 
 
 class SampleType(Enum):
-    OneSamplePerStep = 0,
-    FixedSampleRate = 1,
+    OneSamplePerStep = 0
+    FixedSampleRate = 1
     VariableSampleRate = 2
 
 

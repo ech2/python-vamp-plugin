@@ -58,8 +58,3 @@ def find_vamp_module_classes(py_files: List[str]) -> List[Tuple[str, type]]:
 
 def find_vamp_modules_from_default_path():
     return find_vamp_module_classes(find_python_files(get_vamp_plugins_path()))
-
-
-def find_test_module():
-    from .test import get_test_file
-    return find_vamp_module_classes([get_test_file('dummyplugin.py')])
