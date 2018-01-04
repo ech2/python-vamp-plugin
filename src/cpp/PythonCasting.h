@@ -5,6 +5,7 @@
 #include <vector>
 #include "common.h"
 #include "PythonPlugin.h"
+#include "pybind11/stl.h"
 
 namespace vplug {
 namespace util {
@@ -119,9 +120,8 @@ opt<VampOutputDescriptor> fromPyObj<VampOutputDescriptor>(const py::object &o) {
         v.maxValue = o.attr("max_value").cast<float>();
         v.isQuantized = o.attr("is_quantized").cast<bool>();
         v.quantizeStep = o.attr("quantize_step").cast<float>();
-        v.sampleType = static_cast<VampOutputDescriptor::SampleType>(
-                o.attr("sample_type").cast<int>()
-        );
+        v.sampleType = fromPyObj<VampOutputDescriptor::SampleType>(o.attr("sample_type"))
+                .value_or(VampOutputDescriptor::OneSamplePerStep);
         v.sampleRate = o.attr("sample_rate").cast<float>();
         v.hasDuration = o.attr("has_duration").cast<bool>();
         return v;
