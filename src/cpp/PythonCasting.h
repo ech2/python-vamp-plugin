@@ -19,6 +19,50 @@ static opt<T> fromPyObj(const py::object &o);
 
 
 template<>
+opt<Vamp::Plugin::InputDomain> fromPyObj<Vamp::Plugin::InputDomain>(const py::object &o) {
+    try {
+        auto v = o.attr("value").cast<int>();
+        switch (v) {
+            case 0:
+                return Vamp::Plugin::TimeDomain;
+            case 1:
+                return Vamp::Plugin::FrequencyDomain;
+            default:
+                return {};
+        }
+    } catch (py::cast_error &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    } catch (py::error_already_set &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    }
+}
+
+template<>
+opt<VampOutputDescriptor::SampleType> fromPyObj<VampOutputDescriptor::SampleType>(const py::object &o) {
+    try {
+        auto v = o.attr("value").cast<int>();
+        switch (v) {
+            case 0:
+                return VampOutputDescriptor::OneSamplePerStep;
+            case 1:
+                return VampOutputDescriptor::FixedSampleRate;
+            case 2:
+                return VampOutputDescriptor::VariableSampleRate;
+            default:
+                return {};
+        }
+    } catch (py::cast_error &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    } catch (py::error_already_set &e) {
+        std::cerr << e.what() << std::endl;
+        return {};
+    }
+}
+
+template<>
 opt<VampRealTime> fromPyObj<VampRealTime>(const py::object &o) {
     try {
         auto msec = o.attr("sec").cast<int>();
