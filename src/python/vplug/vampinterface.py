@@ -24,10 +24,10 @@ class RealTime:
 
 class OutputDescriptor:
     def __init__(self,
-                 identifier: str,
-                 name: str,
+                 identifier: str = '',
+                 name: str = '',
                  description: str = '',
-                 unit: str = 'unknown',
+                 unit: str = '',
                  has_fixed_bin_count: bool = False,
                  bin_count: int = 0,
                  bin_names: List[str] = None,
@@ -36,7 +36,7 @@ class OutputDescriptor:
                  max_value: float = 0,
                  is_quantized: bool = False,
                  quantize_step: float = 0,
-                 sample_type: int = 0,
+                 sample_type=SampleType.OneSamplePerStep,
                  sample_rate: float = 0,
                  has_duration: bool = False):
         if bin_names is None:
