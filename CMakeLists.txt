@@ -12,52 +12,8 @@ include_directories(
         ${PYTHON_INCLUDE_DIRS}
         /usr/include)
 
-
-# Main library
-
-add_library(
-        python_vamp_plugin STATIC
-        src/cpp/PythonPlugin.cpp
-        src/cpp/PythonPlugin.h
-        src/cpp/PythonCasting.h
-        src/cpp/PythonPluginAdapter.cpp
-        src/cpp/PythonPluginAdapter.h
-        src/cpp/plugin.cpp)
+add_subdirectory(src/cpp)
+add_subdirectory(src/python)
+add_subdirectory(test)
 
 
-# Test binary
-
-add_executable(
-        simple_test
-        test/simple_test.cpp
-        src/cpp/PythonPlugin.h)
-
-target_link_libraries(
-        simple_test PUBLIC python_vamp_plugin
-        ${PYTHON_LIBRARIES}
-        /usr/lib/libvamp-sdk.so
-        /usr/lib/libvamp-hostsdk.so)
-
-
-# Python files
-
-configure_file(
-        src/python/vplug/__init__.py
-        ${CMAKE_CURRENT_BINARY_DIR}/vplug/__init__.py
-        COPYONLY)
-configure_file(
-        src/python/vplug/vampinterface.py
-        ${CMAKE_CURRENT_BINARY_DIR}/vplug/vampinterface.py
-        COPYONLY)
-configure_file(
-        src/python/vplug/discovery.py
-        ${CMAKE_CURRENT_BINARY_DIR}/vplug/discovery.py
-        COPYONLY)
-configure_file(
-        src/python/vplug/test/__init__.py
-        ${CMAKE_CURRENT_BINARY_DIR}/vplug/test/__init__.py
-        COPYONLY)
-configure_file(
-        src/python/vplug/test/dummyplugin.py
-        ${CMAKE_CURRENT_BINARY_DIR}/vplug/test/dummyplugin.py
-        COPYONLY)
