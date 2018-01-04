@@ -6,15 +6,12 @@
 #define PYTHON_VAMP_PLUGIN_PYPLUGIN_H
 
 #include <experimental/optional>
-#include "pybind11/pybind11.h"
-#include "vamp-sdk/vamp-sdk.h"
+#include "common.h"
 #include "PythonCasting.h"
 
 namespace vplug {
 
-namespace py = pybind11;
-template<typename T> using opt = std::experimental::optional<T>;
-
+using namespace vplug::util;
 
 class PythonPlugin : public Vamp::Plugin {
 public:

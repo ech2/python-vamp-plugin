@@ -5,13 +5,13 @@
 #ifndef PYTHON_VAMP_PLUGIN_PYTHONPLUGINADAPTER_H
 #define PYTHON_VAMP_PLUGIN_PYTHONPLUGINADAPTER_H
 
-#include "vamp-sdk/PluginAdapter.h"
-#include "pybind11/pybind11.h"
+#include "common.h"
+#include <vamp-sdk/PluginAdapter.h>
 
 
 namespace vplug {
 
-namespace py = pybind11;
+using namespace vplug::util;
 
 class PythonPluginAdapter : public Vamp::PluginAdapterBase {
 public:

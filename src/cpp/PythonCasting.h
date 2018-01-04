@@ -7,20 +7,12 @@
 
 #include <list>
 #include <vector>
-#include "pybind11/cast.h"
-#include "vamp-sdk/vamp-sdk.h"
+#include "common.h"
 #include "PythonPlugin.h"
 #include "PythonCasting.h"
 
 namespace vplug {
 namespace util {
-
-using VampFeature = Vamp::Plugin::Feature;
-using VampRealTime = Vamp::RealTime;
-using VampOutputDescriptor = Vamp::Plugin::OutputDescriptor;
-template<typename T> using opt = std::experimental::optional<T>;
-namespace py = pybind11;
-
 
 template<typename T>
 static opt<T> fromPyObj(const py::object &o);
